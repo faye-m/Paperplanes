@@ -58,3 +58,27 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+
+Assets/Prefabs/recyclingBin.prefab.meta
+
+Assets/Scenes.meta
+
+Assets/Scenes/SampleScene.unity.meta
+
+Assets/Scripts.meta
+
+Assets/Scripts/oobjOnHit_script.cs.meta
+
+Assets/Scripts/rbPointCounter_script.cs.meta
+
+Assets/Images.meta
+
+Assets/Materials.meta
+
+Assets/Maya Files.meta
+
+Assets/Prefabs.meta
+
+Assets/Prefabs/officeObject.prefab.meta
+
+Assets/Prefabs/paperPlane.prefab.meta
