@@ -7,10 +7,10 @@ public class rbPointCounter_script : MonoBehaviour
     //variables called and set at the start to remove as much hard coded values from the code so that editing these values will be easier
     //variables are set to private to prevent too easy access to the data for security reasons, variables that will need to be referenced in another script will be made accessible
     //through a public function
-    private int score = 0;
-    private string tagName = "Player";
+    private static int score = 4;
+    private static string tagName = "Player";
     private GameObject player;
-    private int currentScore = 0;
+    private static int currentScore = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -24,8 +24,9 @@ public class rbPointCounter_script : MonoBehaviour
         if (other.gameObject.tag==tagName)
         {
             player = other.gameObject;
-            score = scoreTotal();
+            score = SetScoreTotal(score);
             score += 1;
+            score = SetScoreTotal(score);
             print("Score:    " + score);
             Destroy(player);
         }
@@ -33,9 +34,20 @@ public class rbPointCounter_script : MonoBehaviour
 
     //function that stores the value and calls the private score variable and makes it accessible to other scripts
     // function needs to return an int value
-    public int scoreTotal ()
+    public static int SetScoreTotal ( int x)
     {
-        currentScore = score;
+        currentScore = x;
+        return currentScore;
+    }
+
+    //function that stores the string and calls the private tagName variable and makes it accessible to other scripts
+    public static string PlaneTag ()
+    {
+        return tagName;
+    }
+
+    public static int ScoreTotal()
+    {
         return currentScore;
     }
 }
