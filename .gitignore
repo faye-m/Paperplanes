@@ -82,3 +82,5 @@ Assets/Prefabs.meta
 Assets/Prefabs/officeObject.prefab.meta
 
 Assets/Prefabs/paperPlane.prefab.meta
+
+*.meta
