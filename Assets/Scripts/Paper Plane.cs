@@ -52,10 +52,19 @@ public class PaperPlane : MonoBehaviour
         rigidbody.velocity -= Vector3.up * Time.deltaTime;
 
         // Vertical (to the glider) velocity turns into horizontal velocity
-        //Vector3 vertvel = rigidbody.velocity - vector3.Exclude(transform.up, rigidbody.velocity);
-        //fall = vertvel.magnitude;
-        //rigidbody.velocity -= vertor
+        Vector3 vertvel = rigidbody.velocity - Vector3.Exclude(transform.up, rigidbody.velocity);
+        fall = vertvel.magnitude;
+        rigidbody.velocity -= vertvel * Time.deltaTime;
+        rigidbody.velocity += vertvel.magnitude * transform.forward * Time.deltaTime / 10;
 
+        //Drag
+        Vector3 forwardDrag = rigidbody.velocity - Vertor3.Exclude(transform.forward, rigidbody.velocity);
 
+        Vector3 sideDrag = rigidbody.velocity - Vector3.Exclude(transform.right, rigidbody.velocity);
+        rigidbody.AddForce( -sideDrag * sideDrag.magnitude * Time.deltaTime);
+
+        airspeed = rigidbody.velocity.magnitude;
+
+        tiltometer.ratation = Quaternion.LookRotation(Vector3.up);
        }
 }
