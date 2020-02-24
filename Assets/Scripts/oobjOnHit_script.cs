@@ -31,9 +31,11 @@ public class oobjOnHit_script : MonoBehaviour
             print("Game Over!");
             print(totalScore);
             Destroy(player);
-            Time.timeScale = 0; //pause time
             totalScore = rbPointCounter_script.SetScoreTotal(resetScore); //resets the current score back to 0 by calling the function in the referenced script
             print("Reset Score: " + totalScore);
+            
+            planeMovement_script.SetLaunchSpeed();
+            RandomLevel.LoadTheLevel();
         }
     }
 }

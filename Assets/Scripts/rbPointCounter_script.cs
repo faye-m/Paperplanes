@@ -7,7 +7,7 @@ public class rbPointCounter_script : MonoBehaviour
     //variables called and set at the start to remove as much hard coded values from the code so that editing these values will be easier
     //variables are set to private to prevent too easy access to the data for security reasons, variables that will need to be referenced in another script will be made accessible
     //through a public function
-    private static int score = 4;
+    private static int score = 0;
     private static string tagName = "Player";
     private GameObject player;
     private static int currentScore = 0;
@@ -29,6 +29,9 @@ public class rbPointCounter_script : MonoBehaviour
             score = SetScoreTotal(score);
             print("Score:    " + score);
             Destroy(player);
+            
+            planeMovement_script.SetLaunchSpeed();
+            RandomLevel.LoadTheLevel();
         }
     }
 

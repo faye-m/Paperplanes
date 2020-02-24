@@ -5,8 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class RandomLevel : MonoBehaviour
 {
-    public int levelGenerate;
-    void Update()
+    public static int levelGenerate;
+
+    private void Start()
+    {
+        
+    }
+
+    private void Update()
     {
         
         if (Input.GetKeyDown("e"))
@@ -14,7 +20,7 @@ public class RandomLevel : MonoBehaviour
             LoadTheLevel();
         }
     }
-    public void LoadTheLevel()
+    public static void LoadTheLevel()
     {
         levelGenerate = Random.Range(1, 5);
         SceneManager.LoadScene(levelGenerate);
