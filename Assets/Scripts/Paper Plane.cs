@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PaperPlane : MonoBehaviour
-{
-    // Start is called before the first frame update
+{ // Start is called before the first frame update
     public Rigidbody rigidbody;
     private float energy;
+    private float fall;
+    private float airspeed;
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Period))
@@ -22,8 +21,8 @@ public class PaperPlane : MonoBehaviour
             Time.timeScale *= 2;
         energy = transform.position.y + rigidbody.velocity.magnitude;
     }
-       void FixedUpdate()
-       {
+    void FixedUpdate()
+    {
         float roll = Input.GetAxis("Horizontal");
         float tilt = Input.GetAxis("Vertical");
 
@@ -58,13 +57,15 @@ public class PaperPlane : MonoBehaviour
         rigidbody.velocity += vertvel.magnitude * transform.forward * Time.deltaTime / 10;
 
         //Drag
-        Vector3 forwardDrag = rigidbody.velocity - Vertor3.Exclude(transform.forward, rigidbody.velocity);
+        Vector3 forwardDrag = rigidbody.velocity - Vector3.Exclude(transform.forward, rigidbody.velocity);
 
         Vector3 sideDrag = rigidbody.velocity - Vector3.Exclude(transform.right, rigidbody.velocity);
-        rigidbody.AddForce( -sideDrag * sideDrag.magnitude * Time.deltaTime);
+        rigidbody.AddForce(-sideDrag * sideDrag.magnitude * Time.deltaTime);
 
         airspeed = rigidbody.velocity.magnitude;
 
         tiltometer.ratation = Quaternion.LookRotation(Vector3.up);
-       }
+
+
+    }
 }
