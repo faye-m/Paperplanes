@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class RandomLevel : MonoBehaviour
 {
+    //variables and functions are set to static so that they can be called in other functions
     public static int levelGenerate;
     
 

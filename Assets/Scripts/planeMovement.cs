@@ -6,7 +6,6 @@ public class planeMovement : MonoBehaviour
 {
     //variables for paper plane movement
     private CharacterController paperPlaneController;
-    private Rigidbody rbPaperPlane;
     private float movementSpeed = 3f;
     private float rotXSpeed = 3.0f;
     private float rotYSpeed = 1.5f;
@@ -29,9 +28,7 @@ public class planeMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        paperPlaneController = GetComponent<CharacterController>();
-        rbPaperPlane = GetComponent<Rigidbody>();
-        //paperPlaneGObj = GetComponent<GameObject>();
+        paperPlaneController = GetComponent<CharacterController>(); // gets the character controller component attatched to player and sets it to the variable
 
         paperPlaneController.enabled = true;
     }
@@ -39,33 +36,35 @@ public class planeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //calls the local paper plane functions on void update
         PaperPlaneLaunch();
     }
 
+    //function locking the paper plane's movement in place until spacebar is pressed
     private void PaperPlaneLaunch()
     {
+        // checks if the boolean isLaunched is true and calls the PaperPlaneMovement() function when it is
         if (isLaunched)
         { 
             PaperPlaneMovement();
         }
 
+        //if function is not true (set to false), this code gets called
         else
         {
-            //locks plane in current spawn position until launch;
-            //transform.position = new Vector3(9.12f, 1.245f, -0.612f);
-
+            //locks plane in current spawn position until launch and does not allow any arrow key movement in place
             //argument checks if the player has not yet launched the plane and makes sure that adding force to the plane's movement happens only once by
             //setting the isLaunched to true
             if (Input.GetKeyDown("space") && !isLaunched)
             {
-                print("spacebar pressed");
                 isLaunched = true;
                 PaperPlaneMovement();
             }
         }
     }
 
-    //calls paper plane movement function, script made according to https://youtu.be/u7xxxwDCxC8
+    //calls paper plane movement function, script made according to https://youtu.be/u7xxxwDCxC8 with changes made in order to make the game for PC rather than Android or iOS
+    //Code is also modified to fit the mechanics of the game
     private void PaperPlaneMovement()
     {
         // gives player forward velocity
@@ -75,16 +74,20 @@ public class planeMovement : MonoBehaviour
 
         yaw = Input.GetAxis("Horizontal") * transform.right * rotXSpeed * Time.deltaTime;
 
+        //simulates some form of gravity to the paper plane's movements
+        //when the up key (up arrow, or w key, etc.) is pressed, plane move up
         if (Input.GetAxis("Vertical") > 0)
         {
             pitch = Input.GetAxis("Vertical") * transform.up * rotYSpeed * Time.deltaTime;
         }
 
+        //when the down key (down arrow, or s key, etc.) is pressed, plane moves dives down faster than when no keys are pressed
         else if (Input.GetAxis("Vertical") < 0)
         {
             pitch = Input.GetAxis("Vertical") * transform.up * rotYSpeed * Time.deltaTime * fallSpeed * 2;
         }
 
+        //when neither up nor down keys are pressed, the plane dips to the ground
         else 
         {
             pitch = transform.up * -fallSpeed * Time.deltaTime;
@@ -92,7 +95,7 @@ public class planeMovement : MonoBehaviour
 
         direction = yaw + pitch;
 
-        //limits player from doing a loop
+        //limits player from doing a loop and tilting too high up (prevents player from easily getting back their altitude)
 
         maxX = Quaternion.LookRotation(moveVector + direction).eulerAngles.x;
 
@@ -112,23 +115,31 @@ public class planeMovement : MonoBehaviour
         }
 
         // move player
-        print("Move Vector:   " + moveVector + "   | Max X:   " + maxX);
         paperPlaneController.Move(moveVector * Time.deltaTime);
+
+        // calls the plane's tilting functions (which is on the actual paperplane object rather than the player game object)
         PlaneTilt();
         
     }
 
+    // gives the plane a tilt on the Z axis to better simulate a paper plane's movements
     private void PlaneTilt()
     {
+        //checks if the right and left buttons are being pressed (value is not 0) and tilts plane accordingly
         if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Horizontal") < 0)
         {
+            //set rotation Z speed based on the negative of the current horizontal axis
             rotZSpeed = -Input.GetAxis("Horizontal") * Time.deltaTime * 45f;
+
+            //stores a total current rotation to check if it is over the current angle clamp value
             totalRotZ += rotZSpeed;
 
+            //if current rotation is greater than or equal to the positive clamp value or less than the negative clamp value, rotation clamps to current value
             if (totalRotZ >= zClampVal || totalRotZ <= -zClampVal)
             {
                 paperPlaneGObj.transform.Rotate(0, 0, 0);
 
+                //sets the total rotation equal to the clamp value so that the plane does not get stuck in the clamped angle
                 if (totalRotZ >=zClampVal)
                 {
                     totalRotZ = zClampVal;
@@ -141,16 +152,16 @@ public class planeMovement : MonoBehaviour
                 
             }
 
+            //if current rotation has not reached the clamp value, tilt the plane according to the rotation z set
             else
             {
                 
                 paperPlaneGObj.transform.Rotate(0, 0, rotZSpeed);
             }
 
-            
-            print(totalRotZ);
         }
 
+        //if the left and right buttons are not being pressed, code sets the plane's z rotation back to 0 over time
         else 
         { 
             if (totalRotZ > 0)

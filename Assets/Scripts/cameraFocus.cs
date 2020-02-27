@@ -20,6 +20,7 @@ public class cameraFocus : MonoBehaviour
     void Update()
     {
 
+        //checks if boolean planeisLaunched is true (paper plane has been launched) before camera is set to follow the player's movements
         if (planeisLaunched)
         {
             //update the camera position according to the player location
@@ -32,8 +33,10 @@ public class cameraFocus : MonoBehaviour
             transform.LookAt((focusOn.position + Vector3.up * offset));
         }
         
+        //if plane has not been launched yet, camera stays in fixed position
         else
         {
+            //if space bar is pressed and planeisLaunched is false, set planeisLaunched to true
             if (Input.GetKeyDown("space") && !planeisLaunched)
             {
                 planeisLaunched = true;
