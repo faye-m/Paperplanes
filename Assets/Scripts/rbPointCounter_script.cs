@@ -22,8 +22,10 @@ public class rbPointCounter_script : MonoBehaviour
         if (other.gameObject.tag==tagName)
         {
             //calls the functions made public on different scripts
-            scoreHandler_script.AddPoints();
+            scoreHandler_script.BinAddPoints();
+            playerHealthSystem.SetLives();
             RandomLevel.LoadTheLevel();
+            scoreHandler_script.ResetRingScore();
         }
     }
 

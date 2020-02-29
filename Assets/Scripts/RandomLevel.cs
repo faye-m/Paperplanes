@@ -7,6 +7,7 @@ public class RandomLevel : MonoBehaviour
 {
     //variables and functions are set to static so that they can be called in other functions
     public static int levelGenerate;
+    public static int currentLevel;
     
 
     private void Start()
@@ -22,9 +23,14 @@ public class RandomLevel : MonoBehaviour
     }
     public static void LoadTheLevel()
     {
-        levelGenerate = Random.Range(0, 5);
+        levelGenerate = Random.Range(1, 3);
         SceneManager.LoadScene(levelGenerate);
+        currentLevel = levelGenerate;
+    }
 
+    public static void ReloadCurrentLevel()
+    {
+        SceneManager.LoadScene(currentLevel);
     }
  
 }

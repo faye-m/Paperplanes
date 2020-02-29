@@ -8,6 +8,7 @@ public class scoreHandler_script : MonoBehaviour
 {
     private Text scoreValue;
     private static int  score = 0;
+    private static int ringScore = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,14 +23,31 @@ public class scoreHandler_script : MonoBehaviour
         scoreValue.text = "" + score;
     }
 
-    public static void AddPoints ()
+    public static void BinAddPoints ()
     {
-        score++;
+        score+=25;
+    }
+
+    public static void RingAddPoints ()
+    {
+        score += 5;
+        ringScore += 5;
     }
 
     public static void ResetPoints ()
     {
         score = 0;
+    }
+
+    public static void ResetCurrentLevelScore()
+    {
+        score -= ringScore;
+        ringScore = 0;
+    }
+
+    public static void ResetRingScore()
+    {
+        ringScore = 0;
     }
 
     
