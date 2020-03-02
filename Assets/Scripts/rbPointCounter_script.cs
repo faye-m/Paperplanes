@@ -28,7 +28,7 @@ public class rbPointCounter_script : MonoBehaviour
             scoreHandler_script.ResetRingScore();
         }
 
-        else if (other.gameObject.tag == tagName && gameObject.tag == "Outside")
+        else if (other.gameObject.tag == tagName && gameObject.tag == "binOutside")
         {
             scoreHandler_script.RingAddPoints();
             playerHealthSystem.SetLives();
