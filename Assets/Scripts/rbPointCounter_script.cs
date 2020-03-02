@@ -8,7 +8,7 @@ public class rbPointCounter_script : MonoBehaviour
     //variables are set to private to prevent too easy access to the data for security reasons, variables that will need to be referenced in another script will be made accessible
     //through a public function 
     private static string tagName = "Player";
-  
+ 
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,7 @@ public class rbPointCounter_script : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //code checks if the object that enters the trigger area is tagged as "Player" and adds points accordingly
-        if (other.gameObject.tag==tagName)
+        if (other.gameObject.tag==tagName && gameObject.tag == "binInside" )
         {
             //calls the functions made public on different scripts
             scoreHandler_script.BinAddPoints();
@@ -27,6 +27,15 @@ public class rbPointCounter_script : MonoBehaviour
             RandomLevel.LoadTheLevel();
             scoreHandler_script.ResetRingScore();
         }
+
+        else if (other.gameObject.tag == tagName && gameObject.tag == "Outside")
+        {
+            scoreHandler_script.RingAddPoints();
+            playerHealthSystem.SetLives();
+            RandomLevel.LoadTheLevel();
+            scoreHandler_script.ResetRingScore();
+        }
+
     }
 
     //function that stores the string and calls the private tagName variable and makes it accessible to other scripts

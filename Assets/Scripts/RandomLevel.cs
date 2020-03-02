@@ -23,7 +23,7 @@ public class RandomLevel : MonoBehaviour
     }
     public static void LoadTheLevel()
     {
-        levelGenerate = Random.Range(1, 3);
+        levelGenerate = Random.Range(1, 4);
         SceneManager.LoadScene(levelGenerate);
         currentLevel = levelGenerate;
     }

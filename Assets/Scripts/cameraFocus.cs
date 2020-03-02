@@ -28,13 +28,15 @@ public class cameraFocus : MonoBehaviour
             //update the camera position according to the player location
             if (transform.position.y >= 2.5f)
             {
-                desiredPosition = focusOn.position + (-transform.forward * distance) + (transform.up * offset * 0.005f);
+                desiredPosition = focusOn.position + (-transform.forward * distance) + (transform.up * offset * 0.05f);
             }
 
             else
             {
                 desiredPosition = focusOn.position + (-transform.forward * distance) + (transform.up * offset);
             }
+
+            //desiredPosition = focusOn.position + (-transform.forward * distance) + (transform.up * offset);
 
             //smoothing camera movement
             transform.position = Vector3.Lerp(transform.position, desiredPosition, 0.05f);

@@ -25,7 +25,7 @@ public class oobjOnHit_script : MonoBehaviour
         {
             //calls the functions made public on different scripts
 
-            if (lives > 1)
+            if (lives > 0)
             {
                 //insert reset level script
                 playerHealthSystem.DecreaseLifeBar();
@@ -36,6 +36,7 @@ public class oobjOnHit_script : MonoBehaviour
             else
             {
                 scoreHandler_script.ResetPoints();
+                scoreHandler_script.ResetRingScore();
                 RandomLevel.LoadTheLevel();
                 playerHealthSystem.SetLives();
             }
