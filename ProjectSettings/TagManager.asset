@@ -6,6 +6,8 @@ TagManager:
   tags:
   - binInside
   - binOutside
+  - InGameUI
+  - Plane
   layers:
   - Default
   - TransparentFX

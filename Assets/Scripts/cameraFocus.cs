@@ -6,7 +6,7 @@ public class cameraFocus : MonoBehaviour
 {
     private Transform focusOn;
     private Vector3 desiredPosition;
-    private float offset = 0.45f;
+    private float offset = 0.15f;
     private float distance = 0.015f;
     private bool planeisLaunched = false;
 
@@ -26,7 +26,7 @@ public class cameraFocus : MonoBehaviour
             focusOn = GameObject.FindGameObjectWithTag(rbPointCounter_script.PlaneTag()).transform;
             
             //update the camera position according to the player location
-            if (transform.position.y >= 2.5f)
+            /* if (transform.position.y >= 2.5f)
             {
                 desiredPosition = focusOn.position + (-transform.forward * distance) + (transform.up * offset * 0.05f);
             }
@@ -34,23 +34,23 @@ public class cameraFocus : MonoBehaviour
             else
             {
                 desiredPosition = focusOn.position + (-transform.forward * distance) + (transform.up * offset);
-            }
+            } */
 
-            //desiredPosition = focusOn.position + (-transform.forward * distance) + (transform.up * offset);
+            desiredPosition = focusOn.position + (-transform.forward * distance) + (transform.up * offset);
 
             //smoothing camera movement
             transform.position = Vector3.Lerp(transform.position, desiredPosition, 0.05f);
 
             //Update camera rotation according to
             transform.LookAt((focusOn.position + Vector3.up * offset));
-            print(transform.position);
+            
         }
         
         //if plane has not been launched yet, camera stays in fixed position
         else
         {
             //if space bar is pressed and planeisLaunched is false, set planeisLaunched to true
-            if (Input.GetKeyDown("space") && !planeisLaunched)
+            if (Input.GetKeyDown("space") && !planeisLaunched && !uiDeathScreen.GameIsOver())
             {
                 planeisLaunched = true;
             }

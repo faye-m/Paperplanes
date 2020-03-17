@@ -9,9 +9,13 @@ public class playerHealthSystem : MonoBehaviour
     // Start is called before the first frame update
     private Text pLivesValue;
     private static int lives = 3;
+    private static bool wasTriggered = false;
+    
+
     void Start()
     {
         pLivesValue = GetComponent<Text>();
+        
     }
 
     // Update is called once per frame
@@ -27,10 +31,44 @@ public class playerHealthSystem : MonoBehaviour
 
     public static void ResetChecker()
     {
-        if (lives <= 0)
+        if (lives > 0)
         {
-            SetLives();
-            RandomLevel.LoadTheLevel();
+            //insert reset level script
+            DecreaseLifeBar();
+            wasTriggered = true;
+            RandomLevel.ReloadCurrentLevel();
+            if (lives > 0)
+            {
+                
+                scoreHandler_script.ResetCurrentLevelScore();
+                wasTriggered = false;
+                
+            }
+             else if (lives <= 0)
+            {
+                //scoreHandler_script.ResetPoints();
+                scoreHandler_script.ResetRingScore();
+                lives = 0;
+                wasTriggered = false;
+                //SetLives();
+                //RandomLevel.LoadTheLevel();
+            }
+        } 
+
+        else if (lives <= 0)
+        {
+            lives = 0;
+            wasTriggered = false;
+            scoreHandler_script.ResetPoints();
+            scoreHandler_script.ResetRingScore();
+        }
+
+        else
+        {
+            scoreHandler_script.ResetPoints();
+            scoreHandler_script.ResetRingScore();
+            //SetLives();
+            //RandomLevel.LoadTheLevel();
         }
 
     }

@@ -9,11 +9,13 @@ public class scoreHandler_script : MonoBehaviour
     private Text scoreValue;
     private static int  score = 0;
     private static int ringScore = 0;
+    private static int currentScore = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         //gets the text component in the object and sets it to the scoreValue variable
-        scoreValue = GetComponent<Text>();  
+        scoreValue = GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -21,6 +23,7 @@ public class scoreHandler_script : MonoBehaviour
     {
         //updates the text to whatever the player's current score is;
         scoreValue.text = "" + score;
+        highScoreScript.HighScore();
     }
 
     public static void BinAddPoints ()
@@ -49,6 +52,15 @@ public class scoreHandler_script : MonoBehaviour
     {
         ringScore = 0;
     }
+
+    public static int GetCurrentScore()
+    {
+        return score;
+    }
+
+
+   
+    
 
     
 

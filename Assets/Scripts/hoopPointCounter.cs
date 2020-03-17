@@ -19,7 +19,7 @@ public class hoopPointCounter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == tagName)
+        if (other.gameObject.tag == tagName || other.gameObject.tag == "Plane")
         {
             //calls the functions made public on different scripts
             scoreHandler_script.RingAddPoints();

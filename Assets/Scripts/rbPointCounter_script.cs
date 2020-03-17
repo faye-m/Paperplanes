@@ -19,7 +19,7 @@ public class rbPointCounter_script : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //code checks if the object that enters the trigger area is tagged as "Player" and adds points accordingly
-        if (other.gameObject.tag==tagName && gameObject.tag == "binInside" )
+        if (other.gameObject.tag==tagName && gameObject.tag == "binInside" ||  other.gameObject.tag == "Plane" && gameObject.tag == "binInside")
         {
             //calls the functions made public on different scripts
             scoreHandler_script.BinAddPoints();
@@ -28,7 +28,7 @@ public class rbPointCounter_script : MonoBehaviour
             scoreHandler_script.ResetRingScore();
         }
 
-        else if (other.gameObject.tag == tagName && gameObject.tag == "binOutside")
+        else if (other.gameObject.tag == tagName && gameObject.tag == "binOutside" || other.gameObject.tag == "Plane" && gameObject.tag == "binOutside")
         {
             scoreHandler_script.RingAddPoints();
             playerHealthSystem.SetLives();

@@ -21,25 +21,11 @@ public class oobjOnHit_script : MonoBehaviour
     //function that checks if the object that enters is tagged "Player" and will trigger the game over functions
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag==tagName)
+        if (other.gameObject.tag==tagName || other.gameObject.tag == "Plane")
         {
             //calls the functions made public on different scripts
 
-            if (lives > 0)
-            {
-                //insert reset level script
-                playerHealthSystem.DecreaseLifeBar();
-                RandomLevel.ReloadCurrentLevel();
-                scoreHandler_script.ResetCurrentLevelScore();
-            }
-
-            else
-            {
-                scoreHandler_script.ResetPoints();
-                scoreHandler_script.ResetRingScore();
-                RandomLevel.LoadTheLevel();
-                playerHealthSystem.SetLives();
-            }
+            playerHealthSystem.ResetChecker();
             
         }
     }

@@ -8,7 +8,7 @@ public class planeMovement : MonoBehaviour
     private CharacterController paperPlaneController;
     private float movementSpeed = 3f;
     private float rotXSpeed = 3.0f;
-    private float rotYSpeed = 1.5f;
+    private float rotYSpeed = -1.5f;
     private Vector3 moveVector;
     private Vector3 yaw;
     private Vector3 pitch;
@@ -47,7 +47,8 @@ public class planeMovement : MonoBehaviour
         if (isLaunched)
         { 
             PaperPlaneMovement();
-        }
+            
+        } 
 
         //if function is not true (set to false), this code gets called
         else
@@ -55,7 +56,7 @@ public class planeMovement : MonoBehaviour
             //locks plane in current spawn position until launch and does not allow any arrow key movement in place
             //argument checks if the player has not yet launched the plane and makes sure that adding force to the plane's movement happens only once by
             //setting the isLaunched to true
-            if (Input.GetKeyDown("space") && !isLaunched)
+            if (Input.GetKeyDown("space") && !isLaunched && !uiDeathScreen.GameIsOver())
             {
                 isLaunched = true;
                 PaperPlaneMovement();
@@ -78,13 +79,13 @@ public class planeMovement : MonoBehaviour
         //when the up key (up arrow, or w key, etc.) is pressed, plane move up
         if (Input.GetAxis("Vertical") > 0)
         {
-            pitch = Input.GetAxis("Vertical") * transform.up * rotYSpeed * Time.deltaTime;
+            pitch = Input.GetAxis("Vertical") * transform.up * rotYSpeed * Time.deltaTime * fallSpeed * 2;
         }
 
         //when the down key (down arrow, or s key, etc.) is pressed, plane moves dives down faster than when no keys are pressed
         else if (Input.GetAxis("Vertical") < 0)
         {
-            pitch = Input.GetAxis("Vertical") * transform.up * rotYSpeed * Time.deltaTime * fallSpeed * 2;
+            pitch = Input.GetAxis("Vertical") * transform.up * rotYSpeed * Time.deltaTime;
         }
 
         //when neither up nor down keys are pressed, the plane dips to the ground
