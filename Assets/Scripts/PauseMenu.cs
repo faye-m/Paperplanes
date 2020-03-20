@@ -41,16 +41,39 @@ public class PauseMenu : MonoBehaviour
 
     public void ReturnToMenu()
     {
+        playerHealthSystem.SetLives();
+
+        scoreHandler_script.ResetRingScore();
+
+        scoreHandler_script.ResetPoints();
+        Time.timeScale = 1f;
+        GameIsPaused = false;
         SceneManager.LoadScene(0);
     }
 
-    public void LoadMenu()
+    public void Retry()
     {
+        playerHealthSystem.SetLives();
 
+        scoreHandler_script.ResetRingScore();
+
+        scoreHandler_script.ResetPoints();
+
+        RandomLevel.ReloadCurrentLevel();
+
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        GameIsPaused = false;
     }
 
     public void QuitGame()
     {
+        Debug.Log("QUIT");
+        Application.Quit();
+    }
 
+    public static  bool PauseTheGame()
+    {
+        return GameIsPaused;
     }
 }

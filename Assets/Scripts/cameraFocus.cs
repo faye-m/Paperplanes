@@ -19,12 +19,26 @@ public class cameraFocus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.PauseTheGame())
+        {
 
+        }
+
+        else
+        {
+            CameraFocus();
+        }
+        
+        
+    }
+
+    private void CameraFocus()
+    {
         //checks if boolean planeisLaunched is true (paper plane has been launched) before camera is set to follow the player's movements
         if (planeisLaunched)
         {
             focusOn = GameObject.FindGameObjectWithTag(rbPointCounter_script.PlaneTag()).transform;
-            
+
             //update the camera position according to the player location
             /* if (transform.position.y >= 2.5f)
             {
@@ -43,9 +57,9 @@ public class cameraFocus : MonoBehaviour
 
             //Update camera rotation according to
             transform.LookAt((focusOn.position + Vector3.up * offset));
-            
+
         }
-        
+
         //if plane has not been launched yet, camera stays in fixed position
         else
         {

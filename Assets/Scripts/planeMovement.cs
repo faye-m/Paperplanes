@@ -25,6 +25,8 @@ public class planeMovement : MonoBehaviour
     private float totalRotZ;
     private float zClampVal = 45f;
 
+    private bool isInverted;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,8 +38,20 @@ public class planeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //calls the local paper plane functions on void update
-        PaperPlaneLaunch();
+
+        if (PauseMenu.PauseTheGame())
+        {
+
+        }
+
+        else
+        {
+            //calls the local paper plane functions on void update
+            PaperPlaneLaunch();
+
+            isInverted = UIOptionsMenu.GetBoolean();
+        }
+
     }
 
     //function locking the paper plane's movement in place until spacebar is pressed
@@ -77,15 +91,27 @@ public class planeMovement : MonoBehaviour
 
         //simulates some form of gravity to the paper plane's movements
         //when the up key (up arrow, or w key, etc.) is pressed, plane move up
-        if (Input.GetAxis("Vertical") > 0)
+        if (Input.GetAxis("Vertical") > 0 && isInverted)
         {
             pitch = Input.GetAxis("Vertical") * transform.up * rotYSpeed * Time.deltaTime * fallSpeed * 2;
         }
 
         //when the down key (down arrow, or s key, etc.) is pressed, plane moves dives down faster than when no keys are pressed
-        else if (Input.GetAxis("Vertical") < 0)
+        else if (Input.GetAxis("Vertical") < 0 && isInverted)
         {
             pitch = Input.GetAxis("Vertical") * transform.up * rotYSpeed * Time.deltaTime;
+        }
+
+        else if (Input.GetAxis("Vertical") > 0 && !isInverted)
+        {
+            pitch = Input.GetAxis("Vertical") * transform.up * -rotYSpeed * Time.deltaTime;
+            print("up");
+        }
+
+        else if (Input.GetAxis("Vertical") < 0 && !isInverted)
+        {
+            pitch = Input.GetAxis("Vertical") * transform.up * -rotYSpeed * Time.deltaTime * fallSpeed * 2;
+            print("down");
         }
 
         //when neither up nor down keys are pressed, the plane dips to the ground

@@ -17,4 +17,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ingame_Level3.unity
     guid: e6cf2c6e1d4c4994487988100e26bf85
+  - enabled: 1
+    path: Assets/Scenes/Ingame_Level4.unity
+    guid: 279f618a86dba8349975b9571534946e
+  - enabled: 1
+    path: Assets/Scenes/Ingame_Level1Invert.unity
+    guid: 7c2def95a11173e488d8e05aeccdcdbf
+  - enabled: 1
+    path: Assets/Scenes/Ingame_Level2Invert.unity
+    guid: daf6a68ddf8fc1c49b68ea71b95f3c24
+  - enabled: 1
+    path: Assets/Scenes/Ingame_Level3Invert.unity
+    guid: 8704143c7fab1bb498f128854548396d
+  - enabled: 1
+    path: Assets/Scenes/Ingame_Level4Invert.unity
+    guid: eab944640a41121418cfd93a2d964528
   m_configObjects: {}

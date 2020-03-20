@@ -8,6 +8,7 @@ public class RandomLevel : MonoBehaviour
     //variables and functions are set to static so that they can be called in other functions
     public static int levelGenerate;
     public static int currentLevel;
+    private static int maxLevelAmount = 9;
     
 
     private void Start()
@@ -23,12 +24,12 @@ public class RandomLevel : MonoBehaviour
     }
     public static void LoadTheLevel()
     {
-        levelGenerate = Random.Range(1, 4);
+        levelGenerate = Random.Range(1, maxLevelAmount);
 
         //checks for if level generated is not the same, if it is the same as the current level, it runs the while loop until the value changes
         while (levelGenerate == currentLevel)
         {
-            levelGenerate = Random.Range(1, 4);
+            levelGenerate = Random.Range(1, maxLevelAmount);
         }
 
         SceneManager.LoadScene(levelGenerate);
